@@ -6,6 +6,15 @@ Run `generate.py` to loop over all folders in `src/` and all files in each folde
 
 Each `src/<folder>` will generate a `out/<folder>.json` containing each `src/<folder>/<file>.<type>` as a snippet with the prefix and description `<file>`.
 
+Optionally add the path to your vscode snippet directory into a file named `snippets.path`.
+
+E.g. on mac:
+```
+/Users/<user>/Library/Application Support/Code/User/snippets/
+```
+
+
+# Example Output
 
 ```
 myPath/ $ ./generate.py
@@ -27,6 +36,7 @@ myPath/ $ ./generate.py
  = Writing snippet to myPath/out/dart.json
 ```
 
+# Example Resulting File
 ```json
 {
   "docstringTemplate": {
