@@ -26,3 +26,106 @@ myPath/ $ ./generate.py
  = Generating single json from src snippets ...
  = Writing snippet to myPath/out/dart.json
 ```
+
+```json
+{
+  "docstringTemplate": {
+    "prefix": "docstringTemplate",
+    "description": "docstringTemplate",
+    "body": [
+      "/// {@template $1}",
+      "/// ...",
+      "/// {@endtemplate}",
+      "",
+      "/// {@macro $1"
+    ]
+  },
+  "moor": {
+    "prefix": "moor",
+    "description": "moor",
+    "body": [
+      // ...
+    ]
+  },
+  "proxyRenderObject": {
+    "prefix": "proxyRenderObject",
+    "description": "proxyRenderObject",
+    "body": [
+      // ...
+    ]
+  },
+  "mainDart": {
+    "prefix": "mainDart",
+    "description": "mainDart",
+    "body": [
+      // ...
+    ]
+  },
+  "equalsCollection": {
+    "prefix": "equalsCollection",
+    "description": "equalsCollection",
+    "body": [
+      "import 'package:collection/collection.dart';",
+      "final listEquals = const DeepCollectionEquality().equals;",
+      "final listHash = const DeepCollectionEquality().hash"
+    ]
+  },
+  "leafRenderObject": {
+    "prefix": "leafRenderObject",
+    "description": "leafRenderObject",
+    "body": [
+      // ...
+    ]
+  },
+  "fab": {
+    "prefix": "fab",
+    "description": "fab",
+    "body": [
+      // ...
+    ]
+  },
+  "fori": {
+    "prefix": "fori",
+    "description": "fori",
+    "body": [
+      "\"for (int i=0; i < $1.length; i++) {final item = $1[i];}\","
+    ]
+  },
+  "req": {
+    "prefix": "req",
+    "description": "req",
+    "body": [
+      "@required"
+    ]
+  },
+  "test": {
+    "prefix": "test",
+    "description": "test",
+    "body": [
+      // ...
+    ]
+  },
+  "cmdBase": {
+    "prefix": "cmdBase",
+    "description": "cmdBase",
+    "body": [
+      // ...
+    ]
+  },
+  "canvas": {
+    "prefix": "canvas",
+    "description": "canvas",
+    "body": [
+      // ...
+    ]
+  },
+  "containerDecorated": {
+    "prefix": "containerDecorated",
+    "description": "containerDecorated",
+    "body": [
+      // ...
+    ]
+  }
+}
+
+```
