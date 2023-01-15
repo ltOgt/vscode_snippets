@@ -1,26 +1,26 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-    
+
 /// ========================================================= base command file
-    
+
 /// See [SetupWidget].
 class BaseCommand {
   static BuildContext? _rootContext;
   static BuildContext get rootContext {
     assert(
       _rootContext != null,
-      \"BaseCommand._rootContext not initialized. Did you forget to call BaseCommand.init(context) ,at the top of your application?\"
+      "BaseCommand._rootContext not initialized. Did you forget to call BaseCommand.init(context) ,at the top of your application?"
     );
     return _rootContext!;
-  }
-    
+	}
+
   static void init(BuildContext rootContext) {
     BaseCommand._rootContext ??= rootContext;
   }
-    
+
   MyModel get myModel => rootContext.read();
 }
-    
+
 /// Initializes [BaseCommand] and all of your models
 ///
 /// Put this somewhere high in your application tree
@@ -30,9 +30,9 @@ class SetupWidget extends StatelessWidget {
     Key? key,
     required this.child,
   }) : super(key: key);
-    
+
   final Widget child;
-    
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -52,23 +52,23 @@ class SetupWidget extends StatelessWidget {
     );
   }
 }
-    
+
 /// ========================================================= one of the actual command files
-    
+
 class CanvasSelectionCmd extends BaseCommand {
   /// Change the selection of the canvas
   void run() async {
     myModel.update(myValue: (i) => i++);
   }
 }
-    
+
 /// ========================================================= one of the model files
-    
+
 typedef Updater<T> = T Function(T current);
-    
+
 class MyModel extends ChangeNotifier {
   int _myValue = 0;
-    
+
   /// Update a set of values of the model
   void update({
     Updater<int>? myValue,
@@ -80,10 +80,10 @@ class MyModel extends ChangeNotifier {
         anyChanged = true;
       }
     }
-    
+
     /// TODO add values here as needed
     change(_myValue, myValue, (v) => _myValue = v);
-    
+
     if (anyChanged) notifyListeners();
   }
-}    
+}
