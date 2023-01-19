@@ -619,5 +619,12 @@
       "  child: SizedBox(),",
       ")"
     ]
+  },
+  "enum_next": {
+    "prefix": "enum_next",
+    "description": "enum_next",
+    "body": [
+      "$1 get next => $1.values[(index + 1) % $1.values.length];"
+    ]
   }
 }
