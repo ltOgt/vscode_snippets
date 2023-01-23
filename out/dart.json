@@ -144,6 +144,46 @@
       "}"
     ]
   },
+  "form": {
+    "prefix": "form",
+    "description": "form",
+    "body": [
+      "class _FormExampleState extends State<FormExample> {",
+      "\tfinal _formKey = GlobalKey<FormState>();",
+      "\tfinal _txtCtrl = TextEditingController();",
+      "\t// ...",
+      "",
+      "\t@override",
+      "\tWidget build(BuildContext context) {",
+      "\t\treturn Form(",
+      "\t\t\tkey: _formKey,",
+      "\t\t\tchild: Column(",
+      "\t\t\t\tchildren: [",
+      "\t\t\t\t\t// ..",
+      "\t\t\t\t\tTextFormField(",
+      "\t\t\t\t\t\tcontroller: _txtCtrl,",
+      "\t\t\t\t\t\tvalidator: (value) {",
+      "\t\t\t\t\t\t\tif (value?.isEmpty ?? true) return \"Please Enter a Value\";",
+      "\t\t\t\t\t\t\treturn null;",
+      "\t\t\t\t\t\t},",
+      "\t\t\t\t\t),",
+      "\t\t\t\t\t// ..",
+      "\t\t\t\t\tTextButton(",
+      "\t\t\t\t\t\tchild: const Text(\"Submit\"),",
+      "\t\t\t\t\t\tonPressed: () {",
+      "\t\t\t\t\t\t\tif (!_formKey.currentState!.validate()) return;",
+      "",
+      "\t\t\t\t\t\t\tdoSomethingWithValues(_txtCtrl.value, ...);",
+      "\t\t\t\t\t\t},",
+      "\t\t\t\t\t),",
+      "\t\t\t\t],",
+      "\t\t\t),",
+      "\t\t);",
+      "\t}",
+      "}",
+      ""
+    ]
+  },
   "get_http_html": {
     "prefix": "get_http_html",
     "description": "get_http_html",
@@ -233,6 +273,16 @@
       "  onPressed: () {},",
       "  child: const Icon(Icons.add),",
       ")"
+    ]
+  },
+  "getset": {
+    "prefix": "getset",
+    "description": "getset",
+    "body": [
+      "// 1: type, 2: name",
+      "$1 _$2;",
+      "$1 get $2 => _$2;",
+      "set $2($1 v) => notify(() => _$1 = v);"
     ]
   },
   "fori": {
