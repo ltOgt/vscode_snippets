@@ -2,4 +2,4 @@
 /// ...
 /// {@endtemplate}
 
-/// {@macro $1
+/// {@macro $1}
