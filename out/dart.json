@@ -10,6 +10,13 @@
       "/// {@macro $1}"
     ]
   },
+  "componentX": {
+    "prefix": "componentX",
+    "description": "componentX",
+    "body": [
+      "late StateComponent$1 sc$1 = StateComponent$1(state: this);"
+    ]
+  },
   "moor": {
     "prefix": "moor",
     "description": "moor",
@@ -674,6 +681,13 @@
       "    );",
       "  }",
       "}"
+    ]
+  },
+  "foripos": {
+    "prefix": "foripos",
+    "description": "foripos",
+    "body": [
+      "for (int len = $1.length, i = 0, ri = len-1; i < len; i++, ri--)"
     ]
   },
   "containerDecorated": {
