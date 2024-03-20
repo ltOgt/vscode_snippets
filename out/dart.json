@@ -198,11 +198,11 @@
       ""
     ]
   },
-  "false": {
-    "prefix": "false",
-    "description": "false",
+  "ftrue": {
+    "prefix": "ftrue",
+    "description": "ftrue",
     "body": [
-      "false && "
+      "true || "
     ]
   },
   "get_http_html": {
@@ -321,6 +321,13 @@
       "set $2($1 v) => notify(() => _$2 = v);"
     ]
   },
+  "ffalse": {
+    "prefix": "ffalse",
+    "description": "ffalse",
+    "body": [
+      "false && "
+    ]
+  },
   "fori": {
     "prefix": "fori",
     "description": "fori",
@@ -333,13 +340,6 @@
     "description": "req",
     "body": [
       "@required"
-    ]
-  },
-  "true": {
-    "prefix": "true",
-    "description": "true",
-    "body": [
-      "true || "
     ]
   },
   "test": {
