@@ -198,6 +198,13 @@
       ""
     ]
   },
+  "false": {
+    "prefix": "false",
+    "description": "false",
+    "body": [
+      "false && "
+    ]
+  },
   "get_http_html": {
     "prefix": "get_http_html",
     "description": "get_http_html",
@@ -326,6 +333,13 @@
     "description": "req",
     "body": [
       "@required"
+    ]
+  },
+  "true": {
+    "prefix": "true",
+    "description": "true",
+    "body": [
+      "true || "
     ]
   },
   "test": {
