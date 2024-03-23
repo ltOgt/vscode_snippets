@@ -198,6 +198,13 @@
       ""
     ]
   },
+  "ftrue": {
+    "prefix": "ftrue",
+    "description": "ftrue",
+    "body": [
+      "true || "
+    ]
+  },
   "duration200": {
     "prefix": "duration200",
     "description": "duration200",
@@ -319,6 +326,13 @@
       "$1 _$2;",
       "$1 get $2 => _$2;",
       "set $2($1 v) => notify(() => _$2 = v);"
+    ]
+  },
+  "ffalse": {
+    "prefix": "ffalse",
+    "description": "ffalse",
+    "body": [
+      "false && "
     ]
   },
   "fori": {
