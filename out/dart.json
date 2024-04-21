@@ -328,6 +328,14 @@
       "set $2($1 v) => notify(() => _$2 = v);"
     ]
   },
+  "random": {
+    "prefix": "random",
+    "description": "random",
+    "body": [
+      "final _rng = Random();",
+      "int rng(int min, int max) => min + _rng.nextInt(max - min);"
+    ]
+  },
   "ffalse": {
     "prefix": "ffalse",
     "description": "ffalse",
