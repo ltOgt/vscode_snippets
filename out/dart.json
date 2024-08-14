@@ -1,4 +1,11 @@
 {
+  "maaSpaceAround": {
+    "prefix": "maaSpaceAround",
+    "description": "maaSpaceAround",
+    "body": [
+      "mainAxisAlignment: MainAxisAlignment.spaceAround,"
+    ]
+  },
   "docstringTemplate": {
     "prefix": "docstringTemplate",
     "description": "docstringTemplate",
@@ -10,11 +17,32 @@
       "/// {@macro $1}"
     ]
   },
+  "maaSpaceEvenly": {
+    "prefix": "maaSpaceEvenly",
+    "description": "maaSpaceEvenly",
+    "body": [
+      "mainAxisAlignment: MainAxisAlignment.spaceEvenly,"
+    ]
+  },
+  "maaEnd": {
+    "prefix": "maaEnd",
+    "description": "maaEnd",
+    "body": [
+      "mainAxisAlignment: MainAxisAlignment.end,"
+    ]
+  },
   "componentX": {
     "prefix": "componentX",
     "description": "componentX",
     "body": [
       "late StateComponent$1 sc$1 = StateComponent$1(state: this);"
+    ]
+  },
+  "caaCenter": {
+    "prefix": "caaCenter",
+    "description": "caaCenter",
+    "body": [
+      "crossAxisAlignment: CrossAxisAlignment.center,"
     ]
   },
   "delayed": {
@@ -205,6 +233,20 @@
       "true || "
     ]
   },
+  "caaStart": {
+    "prefix": "caaStart",
+    "description": "caaStart",
+    "body": [
+      "crossAxisAlignment: CrossAxisAlignment.start,"
+    ]
+  },
+  "caaStretch": {
+    "prefix": "caaStretch",
+    "description": "caaStretch",
+    "body": [
+      "crossAxisAlignment: CrossAxisAlignment.stretch,"
+    ]
+  },
   "get_http_html": {
     "prefix": "get_http_html",
     "description": "get_http_html",
@@ -221,6 +263,13 @@
       "if (_response!.statusCode == 200) {",
       "  _html = parser.parse(_response!.body);",
       "}"
+    ]
+  },
+  "maaSpaceBetween": {
+    "prefix": "maaSpaceBetween",
+    "description": "maaSpaceBetween",
+    "body": [
+      "mainAxisAlignment: MainAxisAlignment.spaceBetween,"
     ]
   },
   "equalsCollection": {
@@ -342,6 +391,20 @@
       "@required"
     ]
   },
+  "maaCenter": {
+    "prefix": "maaCenter",
+    "description": "maaCenter",
+    "body": [
+      "mainAxisAlignment: MainAxisAlignment.center,"
+    ]
+  },
+  "maaStart": {
+    "prefix": "maaStart",
+    "description": "maaStart",
+    "body": [
+      "mainAxisAlignment: MainAxisAlignment.start,"
+    ]
+  },
   "test": {
     "prefix": "test",
     "description": "test",
@@ -461,6 +524,20 @@
       "    if (anyChanged) notifyListeners();",
       "  }",
       "}"
+    ]
+  },
+  "caaEnd": {
+    "prefix": "caaEnd",
+    "description": "caaEnd",
+    "body": [
+      "crossAxisAlignment: CrossAxisAlignment.end,"
+    ]
+  },
+  "caaBaseline": {
+    "prefix": "caaBaseline",
+    "description": "caaBaseline",
+    "body": [
+      "crossAxisAlignment: CrossAxisAlignment.baseline,"
     ]
   },
   "canvas": {
