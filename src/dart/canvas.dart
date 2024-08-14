@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:onkel_chatty/firstTry.dart';
 import 'package:relation_canvas/relation_canvas.dart';
 
 void main() {
@@ -31,11 +32,11 @@ class CanvasModel extends ChangeNotifier {
   final Map<CanvasNodeId, CanvasNode> _nodes = {};
   final Map<CanvasExternalId, CanvasExternal> _externals = {};
 
-  /// - [update] receives null     <-- [id] was not found in [_nodes].
+  /// - [update] receives null     <-- [id] was not found in [_relations].
   /// - [update] returns null      --> node behind [id] will not be changed
   ///                              --> node behind [id] will not be removed. use [removeNode] instead.
   /// - [update] returns a node    --> node behind [id] will be replaced.
-  void _updateMap<K, V>(Map<K, V> map, K id, V? Function(V? node) update) {
+  void _updateMap<K, V>(Map<K, V> map, K id, V? Function(V? relation) update) {
     final value = map[id];
     final updated = update(value);
     if (updated != null) {
@@ -59,9 +60,9 @@ class CanvasModel extends ChangeNotifier {
   CanvasRelation? removeRelations(CanvasRelationId id) => _removeMap(_relations, id);
   CanvasExternal? removeExternals(CanvasExternalId id) => _removeMap(_externals, id);
 
-  ReadOnlyMap<CanvasRelationId, CanvasRelation> get relations => _relations.readOnly;
-  ReadOnlyMap<CanvasNodeId, CanvasNode> get nodes => _nodes.readOnly;
-  ReadOnlyMap<CanvasExternalId, CanvasExternal> get externals => _externals.readOnly;
+  UnmodifiableMapView<CanvasRelationId, CanvasRelation> get relations => _relations.readOnly;
+  UnmodifiableMapView<CanvasNodeId, CanvasNode> get nodes => _nodes.readOnly;
+  UnmodifiableMapView<CanvasExternalId, CanvasExternal> get externals => _externals.readOnly;
 }
 
 class _MyCanvasState extends ComponentState<MyCanvas> {
@@ -75,8 +76,8 @@ class _MyCanvasState extends ComponentState<MyCanvas> {
         canvasSettings: canvasSettings,
       );
 
-  CanvasModel get canvasModel => _scCanvasModel.value;
-  late final StateComponent<CanvasModel> _scCanvasModel;
+  CanvasModel get canvasModel => _scCanvasModel.obj;
+  late final StateComponent<CanvasModel, MyCanvas> _scCanvasModel;
   void initModel() => _scCanvasModel = StateComponent(
         onInit: () => CanvasModel(),
         onDispose: (_) {},
@@ -101,9 +102,6 @@ class _MyCanvasState extends ComponentState<MyCanvas> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      floatingActionButton: FloatingActionButton(
-        onPressed: createNewNodeInViewportCenter,
-      ),
       body: RelationCanvas(
         relations: canvasModel.relations,
         nodeCanvasParameters: NodeCanvasParameters(
@@ -152,9 +150,9 @@ class _MyCanvasState extends ComponentState<MyCanvas> {
 
             /// Ordering of all canvas elements
             ordering: {
-              ...canvasModel.nodes.keys,
-              ...canvasModel.relations.keys,
               ...canvasModel.externals.keys,
+              ...canvasModel.relations.keys,
+              ...canvasModel.nodes.keys,
             } as LinkedHashSet<CanvasElementId>,
 
             /// Groups of [CanvasNodeId]s that can be transformed together
@@ -188,22 +186,28 @@ class _MyCanvasState extends ComponentState<MyCanvas> {
               final OffsetCanvas co = ctrl.rfc.offsetCanvasTLToCanvas(
                 OffsetCanvasTL.fromOffset(details.localPosition),
               );
-              print(\"Tapped the canvas at ${co.toValueString()}\");
+              print("Tapped the canvas at ${co.toValueString()}");
+
+              addLightExternalOnClick(co);
 
               /// Clear selection
-              ctrl.ncCtrl.clearSelection();
+              ctrl.ncCtrl.clearSelectionAreas();
             },
 
             /// Widget to put as background
-            backgroundWidget: const DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: RadialGradient(
-                  colors: [
-                    Color(0xFF444444),
-                    Color(0xFF333333),
-                    Color(0xFF222222),
-                    Color(0xFF000000),
-                  ],
+            backgroundWidget: Center(
+              child: Container(
+                width: 400,
+                height: 400,
+                decoration: const BoxDecoration(
+                  gradient: RadialGradient(
+                    colors: [
+                      Color(0xFF444444),
+                      Color(0xFF333333),
+                      Color(0xFF222222),
+                      Color(0xFF000000),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -217,19 +221,61 @@ class _MyCanvasState extends ComponentState<MyCanvas> {
     );
   }
 
-  void createNewNodeInViewportCenter() {
+  CanvasExternalId? lastLight;
+  void addLightExternalOnClick(OffsetCanvas center) {
     final id = CanvasNodeId.decode(idGen.next.value);
-    final viewportRect = ctrl.rfc.viewportAsCanvasRect;
-
-    canvasModel.updateNode(
-      id,
-      (node) => CanvasNode(
-        id: id,
-        rect: viewportRect.shrink(viewportRect.smallSide / 4),
-        builder: CanvasElementCachelessBuilder(builder: (context, lod) {
-          return Container(color: Colors.blue);
-        }),
+    //final viewportRect = ctrl.rfc.viewportAsCanvasRect;
+    final viewportCenteredRect = RectCanvas.fromRect(
+      Rect.fromCenter(
+        center: center.asOffset(),
+        width: 700,
+        height: 400,
       ),
     );
+
+    final newLightId = CanvasExternalId.decode(idGen.next.value);
+    if (lastLight != null) {
+      final relationId = CanvasRelationId.decode(idGen.next.value);
+      canvasModel.updateRelations(
+        relationId,
+        (node) => CanvasRelation(
+          id: relationId,
+          anchorA: AnchorRcCenter(element: lastLight!),
+          anchorB: AnchorRcCenter(element: newLightId),
+          direction: DirectionRC.ab,
+          waypoints: [],
+          style: CanvasPathStyle(
+            lineColor: Colors.white.withAlpha(44),
+            lineWidth: 2,
+            pointColor: Colors.white.withAlpha(44),
+            pointRadius: 10,
+          ),
+        ),
+      );
+    }
+
+    canvasModel.updateExternals(
+      newLightId,
+      (node) => CanvasExternal(
+        id: newLightId,
+        rect: viewportCenteredRect,
+        builder: CanvasElementCachelessBuilder(
+          builder: (context, lod) => DecoratedBox(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: Colors.white.withAlpha(20)),
+              gradient: RadialGradient(
+                colors: [
+                  Colors.white,
+                  Colors.white.withAlpha(0),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    lastLight = newLightId;
   }
 }
