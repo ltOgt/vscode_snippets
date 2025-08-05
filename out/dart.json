@@ -320,6 +320,13 @@
       ""
     ]
   },
+  "datedebug": {
+    "prefix": "datedebug",
+    "description": "datedebug",
+    "body": [
+      "DateTime.now().isAfter(DateTime(1970))"
+    ]
+  },
   "ftrue": {
     "prefix": "ftrue",
     "description": "ftrue",
@@ -959,6 +966,13 @@
       "  ),",
       "  child: const SizedBox(),",
       "),"
+    ]
+  },
+  "theme": {
+    "prefix": "theme",
+    "description": "theme",
+    "body": [
+      "final theme = Theme.of(context);"
     ]
   },
   "enum_next": {

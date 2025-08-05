@@ -1,0 +1,1 @@
+DateTime.now().isAfter(DateTime(1970))
